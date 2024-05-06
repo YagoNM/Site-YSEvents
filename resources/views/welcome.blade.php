@@ -1,15 +1,42 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.main')
 
-        <title>YSEvents</title>
+@section('title', 'YS Events')
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+@section('content')
 
-<h1>YS Events</h1>
-
-<p>teste 1</p>
+<div id="search-container" class="col-md-12">
+    <h1>Busque um evento</h1>
+    <form action="/" method ="GET">
+        <input type="text" id="search" name="search" class="form-control" placeholder='Procurar...'>
+    </form>
+</div>
+<div id="events-container" class="col-md-12">
+    @if($search)
+    <h2>Resultados de: {{ $search }}</h2>
+    @else
+    <h2>Próximos Eventos</h2>
+    <p class="subtitle">Veja os eventos que estão chegando!</p> 
+    @endif
+    <div id="cards-container" class="row">
+        @foreach($events as $event)
+            <div class="card col-md-3">
+                <img src="/img/events/{{ $event->image }}" alt="{{ $event->title }}">
+                <div class="card-body">
+                    <p class="card-date">{{ date('d/m/Y', strtotime($event->date)) }}</p>
+                    <h5 class="card-title">{{ $event->title}}</h5>
+                    <p class="card-participants">X Participantes</p>
+                    <a href="/events/{{ $event->id }}" class="btn btn-primary">Saber mais</a>
+                </div>
+            </div>
+        @endforeach
+    </div>
+    @if(count($events) == 0)
+        <p class="d"> Não há nenhum evento disponivel.</p>
+    @endif
+    <div>
+        <ul>
+            <li><a href="#"><i class="fa fa-whatsapp" aria-hidden="true"> </i></a></li>
+        </ul>
+    </div>
+</div>
+@endsection
