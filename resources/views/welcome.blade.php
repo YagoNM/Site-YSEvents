@@ -33,10 +33,5 @@
     @if(count($events) == 0)
         <p class="d"> Não há nenhum evento disponivel.</p>
     @endif
-    <div>
-        <ul>
-            <li><a href="#"><i class="fa fa-whatsapp" aria-hidden="true"> </i></a></li>
-        </ul>
-    </div>
 </div>
 @endsection
